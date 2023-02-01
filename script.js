@@ -26,6 +26,7 @@ const addColorPickerListeners = () => {
     backgroundColorPicker.addEventListener('change', updateBackgroundColor);
 };
 
+// Call the function
 addColorPickerListeners();
 
 // Sliders
@@ -41,13 +42,13 @@ const marginValue = document.querySelector('#margin-value');
 // Update the size value when the size slider changes
 const updateSize = e => {
     const value = e.target.value;
-    sizeValue = value;
+    sizeValue.innerText = `${value} x ${value}`;
 };
 
 // Update the margin value when the margin slider changes
 const updateMargin = e => {
     const value = e.target.value;
-    marginValue = value;
+    marginValue.innerText = `${value} px`;
 };
 
 // Add event listeners to the sliders
@@ -56,6 +57,7 @@ const addSliderListeners = () => {
     marginSlider.addEventListener('change', updateMargin);
 };
 
+// Call the function
 addSliderListeners();
 
 // User Preferences 
@@ -63,11 +65,115 @@ addSliderListeners();
 // URL / Text
 const dataInput = document.querySelector('#data');
 // Format
-const imagForamt = document.querySelector('input[name="format"]:checked');
+const imageForamt = document.querySelector('input[name="format"]:checked');
 // Button
 const submitButton = document.querySelector('#cta');
 
+// Return the user preferences for the QR code as the API expects them
+const prepareParameters = params => {
+    const prepared = {
+        data: params.data,
+        size: `${params.size}x${params.size}`,
+        color: params.color.replace('#', ''),
+        bgColor: params.bgColor.replace('#', ''),
+        qzone: params.qZone,
+        format: params.format,
+    };
 
+    return prepared;
+};
+
+// Setting Container
+const settingsContainer = document.querySelector('#qr-code-settings');
+// QR Code Container
+const resultsContainer = document.querySelector('#qr-code-result');
+// QR Code Image
+const qrCodeImage = document.querySelector('#qr-code-image');
+
+// Show the QR code
+const displayQrCode = imgUrl => {
+    settingsContainer.classList.add('flipped'); // Hide the settings
+    resultsContainer.classList.add('flipped'); // Show the QR code
+
+    qrCodeImage.setAttribute = ('src', imgUrl); // Set the image source
+};
+
+// API Call
+
+const getQrCode = parameters => {
+    const baseUrl = 'https://api.qrserver.com/v1/create-qr-code/';
+    const urlParams = new URLSearchParams(parameters).toString();
+
+    const fullUrl = `${baseUrl}?${urlParams}`;
+
+    fetch(fullUrl).then(response => {
+        if (response.status === 200) {
+            displayQrCode(fullUrl);
+        }
+    });
+};
+
+// Input error
+const inputError = () => {
+    dataInput.classList.add('error'); // Add the error class to the input
+};
+
+const dataInputListener = () => {
+    dataInput.addEventListener('change', e => {
+        if (e.target.value !== '') {
+            dataInput.classList.remove('error');
+            submitButton.removeAttribute('disabled');
+        } else {
+            dataInput.classList.add('error');
+            submitButton.setAttribute('disabled', true);
+        }
+    });
+};
+
+// Call the function
+dataInputListener();
+
+// Submit the form
+const onSubmit = () => {
+    const data = dataInput.value; 
+    if (!data.length){ // If the input is equal to 0
+        return inputError(); // call the input error function
+    }
+
+    const color = mainColorPicker.value;
+    const bgColor = backgroundColorPicker.value;
+    const size = sizeSlider.value;
+    const qZone = marginSlider.value;
+    const format = document.querySelector('input[name="format"]:checked').value;
+
+    const parameters = prepareParameters({ data, color, bgColor, size, qZone, format }); 
+
+    getQrCode(parameters); // Call the API
+};
+
+// Add event listener to the submit button
+const addSubmitListener = () => {
+    submitButton.addEventListener('click', onSubmit);
+};
+
+// Call the function
+addSubmitListener();
+
+const editButton = document.querySelector('#edit');
+
+// Edit again the QR code
+const onEdit = () => {
+    settingsContainer.classList.remove('flipped'); // Show the settings
+    resultsContainer.classList.remove('flipped'); // Hide the QR code
+};
+
+// Add event listener to the edit button
+function addEditEventListener() {
+    editButton.addEventListener('click', onEdit);
+}
+
+// Call the function
+addEditEventListener();
 
 
 
