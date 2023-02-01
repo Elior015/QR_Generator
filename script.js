@@ -95,7 +95,7 @@ const displayQrCode = imgUrl => {
     settingsContainer.classList.add('flipped'); // Hide the settings
     resultsContainer.classList.add('flipped'); // Show the QR code
 
-    qrCodeImage.setAttribute = ('src', imgUrl); // Set the image source
+    qrCodeImage.setAttribute('src', imgUrl); // Set the image source
 };
 
 // API Call
