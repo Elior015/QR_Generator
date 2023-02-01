@@ -1,12 +1,12 @@
 //Colors 
 
 // Get the main color picker and the color value 
-const mainColorPicker = document.querySelector('#color')
-const mainColorValue = document.querySelector('#color-value')
+const mainColorPicker = document.querySelector('#color');
+const mainColorValue = document.querySelector('#color-value');
 
 // Get the background color picker and the background color value
-const backgroundColorPicker = document.querySelector('#bg-color')
-const backgroundColorValue = document.querySelector('#bg-color-value')
+const backgroundColorPicker = document.querySelector('#bg-color');
+const backgroundColorValue = document.querySelector('#bg-color-value');
 
 // Update the main color value when the color picker changes
 const updateColor = e => {
