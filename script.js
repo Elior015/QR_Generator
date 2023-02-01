@@ -101,14 +101,14 @@ const displayQrCode = imgUrl => {
 // API Call
 
 const getQrCode = parameters => {
-    const baseUrl = 'https://api.qrserver.com/v1/create-qr-code/';
-    const urlParams = new URLSearchParams(parameters).toString();
+    const baseUrl = 'https://api.qrserver.com/v1/create-qr-code/'; // API URL
+    const urlParams = new URLSearchParams(parameters).toString(); // Convert the parameters to a string that can be used in the URL API
 
-    const fullUrl = `${baseUrl}?${urlParams}`;
+    const fullUrl = `${baseUrl}?${urlParams}`; // Combine the API URL and the parameters for the API call
 
-    fetch(fullUrl).then(response => {
-        if (response.status === 200) {
-            displayQrCode(fullUrl);
+    fetch(fullUrl).then(response => { // Fetch the API with the full URL
+        if (response.status === 200) { // If the response is OK
+            displayQrCode(fullUrl); // Call the display QR code function
         }
     });
 };
@@ -120,12 +120,12 @@ const inputError = () => {
 
 const dataInputListener = () => {
     dataInput.addEventListener('change', e => {
-        if (e.target.value !== '') {
-            dataInput.classList.remove('error');
-            submitButton.removeAttribute('disabled');
+        if (e.target.value !== '') { // If the input is not equal to 0
+            dataInput.classList.remove('error'); // Remove the error class from the input
+            submitButton.removeAttribute('disabled'); // Enable the submit button
         } else {
-            dataInput.classList.add('error');
-            submitButton.setAttribute('disabled', true);
+            dataInput.classList.add('error'); // Add the error class to the input
+            submitButton.setAttribute('disabled', true); // Disable the submit button
         }
     });
 };
@@ -140,13 +140,14 @@ const onSubmit = () => {
         return inputError(); // call the input error function
     }
 
+    // Put the user preferences in variables that going to be used in the API call
     const color = mainColorPicker.value;
     const bgColor = backgroundColorPicker.value;
     const size = sizeSlider.value;
     const qZone = marginSlider.value;
     const format = document.querySelector('input[name="format"]:checked').value;
 
-    const parameters = prepareParameters({ data, color, bgColor, size, qZone, format }); 
+    const parameters = prepareParameters({ data, color, bgColor, size, qZone, format }); // Prepare the parameters for the API call
 
     getQrCode(parameters); // Call the API
 };

@@ -1,5 +1,5 @@
 body {
-    background-color: #f5f2ea;
+    background-color: #ccaa87;
     padding: 0 2rem;
     font-family: 'Work Sans', sans-serif;
     font-weight: 400;
@@ -63,7 +63,7 @@ main {
 }
 
 .container {
-    background-color: #ffffff;
+    background-color: #87a9cc;
     border-radius: 1rem;
     min-width: 350px;
     max-width: 500px;
