@@ -75,7 +75,7 @@ const prepareParameters = params => {
         data: params.data,
         size: `${params.size}x${params.size}`,
         color: params.color.replace('#', ''),
-        bgColor: params.bgColor.replace('#', ''),
+        bgcolor: params.bgcolor.replace('#', ''),
         qzone: params.qZone,
         format: params.format,
     };
@@ -142,12 +142,12 @@ const onSubmit = () => {
 
     // Put the user preferences in variables that going to be used in the API call
     const color = mainColorPicker.value;
-    const bgColor = backgroundColorPicker.value;
+    const bgcolor = backgroundColorPicker.value;
     const size = sizeSlider.value;
     const qZone = marginSlider.value;
     const format = document.querySelector('input[name="format"]:checked').value;
 
-    const parameters = prepareParameters({ data, color, bgColor, size, qZone, format }); // Prepare the parameters for the API call
+    const parameters = prepareParameters({ data, color, bgcolor, size, qZone, format }); // Prepare the parameters for the API call
 
     getQrCode(parameters); // Call the API
 };
