@@ -145,7 +145,7 @@ const onSubmit = () => {
     const bgcolor = backgroundColorPicker.value;
     const size = sizeSlider.value;
     const qZone = marginSlider.value;
-    const format = document.querySelector('input[name="format"]:checked').value;
+    const format = document.querySelector('input[name="format"]:checked').value; // Get the format with the checked attribute
 
     const parameters = prepareParameters({ data, color, bgcolor, size, qZone, format }); // Prepare the parameters for the API call
 
@@ -154,13 +154,13 @@ const onSubmit = () => {
 
 // Add event listener to the submit button
 const addSubmitListener = () => {
-    submitButton.addEventListener('click', onSubmit);
+    submitButton.addEventListener('click', onSubmit); // When the submit button is clicked, call the onSubmit function
 };
 
 // Call the function
 addSubmitListener();
 
-const editButton = document.querySelector('#edit');
+const editButton = document.querySelector('#edit'); 
 
 // Edit again the QR code
 const onEdit = () => {
